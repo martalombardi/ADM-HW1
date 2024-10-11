@@ -104,3 +104,177 @@ if __name__ == '__main__':
     n = int(input())
     # Call the print function to display the numbers from 1 to n
     printFunction(n)
+
+# DATA TYPES
+
+# List Comprehensions
+# This function generates a list of coordinates based on the conditions given
+def coordinates(x, y, z, n):
+    # Using list comprehension to generate coordinates [i, j, k]
+    # where i + j + k is not equal to n
+    coord = [[i, j, k] for i in range(x+1) for j in range(y+1) for k in range(z+1) if i + j + k != n]
+    return coord
+
+if __name__ == '__main__':
+    # Read inputs for x, y, z, and n
+    x = int(input())
+    y = int(input())
+    z = int(input())
+    n = int(input())
+    # Print the result of the coordinates function
+    print(coordinates(x, y, z, n))
+
+# Find the Runner-Up Score!
+# This function finds the second highest score from a list of scores
+def runnerUpScore(arr):
+    # Initialize two variables to track the highest and second highest scores
+    # Setting them to negative infinity ensures any real score will be higher
+    first_score = -float("inf")
+    second_score = -float("inf")
+    
+    # Iterate through each score in the input list
+    for score in arr:
+        # If the current score is higher than the highest recorded score
+        if score > first_score:
+            # The current highest score becomes the second highest
+            second_score = first_score
+            # Update the highest score with the current score
+            first_score = score
+        # If the current score is between the highest and second highest scores
+        elif score > second_score and score != first_score:
+            # Update the second highest score with the current score
+            second_score = score
+    
+    # Return the second highest score
+    return second_score
+
+if __name__ == '__main__':
+    # Read the number of elements and the list of scores
+    n = int(input())
+    arr = map(int, input().split())
+    # Print the result of the runnerUpScore function
+    print(runnerUpScore(arr))
+
+# Nested Lists
+# This function finds students with the second lowest grade and prints their names alphabetically
+def secondLowestGrade(scores):
+    # Initialize the lowest and second lowest score variables to infinity
+    lowest_score = float("inf")
+    second_lowest_score = float("inf")
+    # Lists to hold student names who have the lowest and second lowest scores
+    first_names = []
+    second_names = []
+
+    # Iterate through each student and their score in the dictionary
+    for name in scores.keys():
+        score = scores.get(name)
+        # If the current score is lower than the recorded lowest score
+        if score < lowest_score:
+            # Update the second lowest score and move the first names to second
+            second_lowest_score = lowest_score
+            second_names = first_names
+            # Update the lowest score and record the name as the lowest scorer
+            lowest_score = score
+            first_names = [name]
+        # If the current score is equal to the lowest score, add the name to the first names list
+        elif score == lowest_score:
+            first_names.append(name)
+        # If the score is equal to the second lowest, add the name to the second names list
+        elif score == second_lowest_score:
+            second_names.append(name)
+        # If the score falls between the lowest and second lowest, update the second lowest score
+        elif lowest_score < score < second_lowest_score:
+            second_lowest_score = score
+            second_names = [name]
+    
+    # Sort the names of students with the second lowest score in alphabetical order
+    second_names.sort()
+    
+    # Print each name from the second lowest names list
+    for i in range(len(second_names)):
+        print(second_names[i])
+
+if __name__ == '__main__':
+    # Read input for the number of students and their scores
+    scores = {}
+    for _ in range(int(input())):
+        name = input()
+        score = float(input())
+        scores[name] = score
+    # Call the function to find and print students with the second lowest grade
+    secondLowestGrade(scores)
+
+# Finding the percentage
+# This function calculates the average score of a queried student
+def avgQuery(student_marks, query_name):
+    # Get the list of scores for the queried student
+    query_name_scores = student_marks.get(query_name)
+    # Calculate the average score
+    average = sum(query_name_scores) / len(query_name_scores)
+    # Return the average formatted to 2 decimal places
+    return "{:.2f}".format(average)
+
+if __name__ == '__main__':
+    # Read the number of students and their marks
+    n = int(input())
+    student_marks = {}
+    for _ in range(n):
+        name, *line = input().split()
+        scores = list(map(float, line))
+        student_marks[name] = scores
+    # Read the student name to query
+    query_name = input()
+    # Print the average score of the queried student
+    print(avgQuery(student_marks, query_name))
+
+# Lists
+# This function performs various operations on a list based on user input
+def performCommands(operations):
+    arr = []
+    # Iterate over the operations and execute them
+    for operation in operations:
+        command, *number = operation.split()
+        value = list(map(int, number))
+        match command:
+            case "insert":
+                # Insert value[1] at index value[0]
+                arr.insert(value[0], value[1])
+            case "print":
+                # Print the current list
+                print(arr)
+            case "remove":
+                # Remove the first occurrence of value[0]
+                arr.remove(value[0])
+            case "append":
+                # Append value[0] to the list
+                arr.append(value[0])
+            case "sort":
+                # Sort the list
+                arr.sort()
+            case "pop":
+                # Remove the last element from the list
+                arr.pop()
+            case "reverse":
+                # Reverse the list
+                arr.reverse()
+
+if __name__ == '__main__':
+    # Read the number of operations
+    N = int(input())
+    operations = []
+    # Read each operation and store it in the list
+    for i in range(N):
+        command = input()
+        operations.append(command)
+    # Execute the operations
+    performCommands(operations)
+
+# Tuples
+# This block creates a tuple from input integers and prints its hash value
+if __name__ == '__main__':
+    # Read the number of elements in the tuple
+    n = int(input())
+    # Create a tuple from the input integers
+    t = tuple(map(int, input().split()))
+    # Print the hash of the tuple
+    print(hash(t))
