@@ -278,3 +278,121 @@ if __name__ == '__main__':
     t = tuple(map(int, input().split()))
     # Print the hash of the tuple
     print(hash(t))
+
+# STRINGS
+
+# sWAP cASE
+def swap_case(s):
+    swapped = []
+    
+    for char in s:
+        if char.isupper():
+            swapped.append(char.lower())
+        else:
+            swapped.append(char.upper())
+    return(''.join(swapped))
+
+if __name__ == '__main__':
+    s = input()
+    result = swap_case(s)
+    print(result)
+
+# String Split and Join
+def split_and_join(line):
+    return '-'.join(line.split())
+
+if __name__ == '__main__':
+    line = input()
+    result = split_and_join(line)
+    print(result)
+
+# What's Your Name?
+def print_full_name(first, last):
+    print("Hello " + first + " " + last + "! You just delved into python.")
+
+if __name__ == '__main__':
+    first_name = input()
+    last_name = input()
+    print_full_name(first_name, last_name)
+
+# Mutations
+def mutate_string(string, position, character):
+    string_list = list(string)
+    string_list[position] = character
+    return ''.join(string_list)
+
+if __name__ == '__main__':
+    s = input()
+    i, c = input().split()
+    s_new = mutate_string(s, int(i), c)
+    print(s_new)
+
+# Find a string
+def count_substring(string, sub_string):
+    
+    count = 0
+    len_sub_string = len(sub_string)
+    
+    for i in range(len(string) - len_sub_string + 1):
+        if string[i:i+len_sub_string] == sub_string:
+            count += 1
+    return count
+
+if __name__ == '__main__':
+    string = input().strip()
+    sub_string = input().strip()
+    
+    count = count_substring(string, sub_string)
+    print(count)
+
+# String Validators
+if __name__ == '__main__':
+    s = input()
+    
+    print(any(c.isalnum() for c in s))
+    print(any(c.isalpha() for c in s)) 
+    print(any(c.isdigit() for c in s))
+    print(any(c.islower() for c in s))
+    print(any(c.isupper() for c in s))
+
+# Text Alignment
+thickness = int(input())  
+c = 'H'
+
+for i in range(thickness):
+    print((c * (2 * i + 1)).center(thickness * 2))
+
+for i in range(thickness + 1):
+    print((c * thickness).center(thickness * 2) + (c * thickness).center(thickness * 6))
+
+for i in range((thickness + 1) // 2):
+    print((c * thickness * 5).center(thickness * 6))
+
+for i in range(thickness + 1):
+    print((c * thickness).center(thickness * 2) + (c * thickness).center(thickness * 6))
+
+for i in range(thickness):
+    print((c * (2 * (thickness - i) - 1)).center(thickness * 2).rjust(thickness * 6))
+
+# Text Wrap
+import textwrap
+
+def wrap(string, max_width):
+    len_string = len(string)
+    s = ""
+    upper = max_width
+    i = 0
+    
+    while i < len_string:
+        if i + max_width > len_string:
+            upper = len_string - i
+        s = s + string[i:i+upper] + "\n"
+        i = i + upper
+    return(s)
+
+if __name__ == '__main__':
+    string, max_width = input(), int(input())
+    result = wrap(string, max_width)
+    print(result)
+
+# Designer Door Mat
