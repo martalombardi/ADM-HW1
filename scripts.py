@@ -1565,3 +1565,48 @@ if __name__ == '__main__':
     depth(tree.getroot(), -1)
     # Print the maximum depth found in the XML tree
     print(maxdepth)
+
+# CLOSURES AND DECORATIONS
+
+# Standardize Mobile Number Using Decorators
+def wrapper(f):
+    def fun(l):
+        formatted = []
+        for number in l:
+            number = number[1:] if number.startswith("0") else number  # Remove leading '0'
+            number = "91" + number if len(number) < 10 else number  # Add '91' prefix if needed
+            formatted.append(f"+91 {number[-10:-5]} {number[-5:]}")  # Format number
+        return f(formatted)  # Pass the formatted list to the original function
+    return fun  # Return the inner function
+
+@wrapper
+def sort_phone(l):
+    print(*sorted(l), sep='\n')  # Sort and print the formatted numbers
+
+if __name__ == '__main__':
+    l = [input() for _ in range(int(input()))]  # Read input numbers
+    sort_phone(l)  # Call the decorated function
+
+# Decorators 2 - Name Directory
+import operator
+
+# Decorator to sort by age and format names
+def person_lister(f):
+    def inner(people):
+        # Sort people by age (3rd element) while maintaining the input order for same ages
+        sorted_people = sorted(people, key=lambda x: int(x[2]))  # Sort by age
+        return [f(person) for person in sorted_people]  # Format the names
+    return inner
+
+# Function to format names based on sex
+@person_lister
+def name_format(person):
+    # Determine the title based on the sex
+    title = "Mr. " if person[3] == "M" else "Ms. "
+    # Return the formatted name
+    return title + person[0] + " " + person[1]
+
+if __name__ == '__main__':
+    n = int(input())  # Read the number of people
+    people = [input().split() for _ in range(n)]  # Read people's details
+    print(*name_format(people), sep='\n')  # Print formatted names
