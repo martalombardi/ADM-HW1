@@ -1486,3 +1486,82 @@ dec_matrix = ''.join(matrix[n][m] for m in range(size[1]) for n in range(size[0]
 
 # Print the final output
 print(re.sub(r'(?<=\w)([^\w]+)(?=\w)', ' ', dec_matrix))
+
+# XML
+
+# XML 1 - Find the Score
+import sys
+import xml.etree.ElementTree as etree
+from collections import deque
+
+def get_attr_number(node):
+    # Initialize the score to count attributes
+    score = 0
+    # Use a queue to facilitate level-order traversal of the XML tree
+    queue = deque([node])
+    
+    while queue:
+        # Remove the first element from the queue
+        tag = queue.popleft()
+        # Count the number of attributes of the current node and add to score
+        score += len(tag.attrib)
+        # Enqueue all child nodes for further processing
+        for subtag in tag:
+            queue.append(subtag)
+    
+    return score
+
+if __name__ == '__main__':
+    # Read the first line (not used but can be necessary for structured input)
+    sys.stdin.readline()
+    # Read the entire XML input from standard input
+    xml = sys.stdin.read()
+    # Parse the XML string into an ElementTree object
+    tree = etree.ElementTree(etree.fromstring(xml))
+    # Get the root element of the XML tree
+    root = tree.getroot()
+    # Call the function to get the total number of attributes and print the result
+    print(get_attr_number(root))
+
+# XML2 - Find the Maximum Depth
+import xml.etree.ElementTree as etree
+from collections import deque
+
+# Initialize a global variable to keep track of maximum depth
+maxdepth = 0
+
+# Function to compute the total number of attributes in the XML node
+def get_attr_number(node):
+    score = 0
+    # Use a deque for level-order traversal of the XML tree
+    queue = deque([node])
+    
+    while queue:
+        tag = queue.popleft()  # Remove the first element from the queue
+        score += len(tag.attrib)  # Count the attributes of the current node
+        for subtag in tag:
+            queue.append(subtag)  # Enqueue all child nodes for further processing
+    return score
+
+# Recursive function to determine the maximum depth of the XML tree
+def depth(elem, level):
+    global maxdepth
+    level += 1  # Increment the depth level
+    maxdepth = max(maxdepth, level)  # Update maxdepth if the current level is greater
+    attr_count = get_attr_number(elem)  # Get the total number of attributes in the current element
+    
+    for child in elem:
+        depth(child, level)  # Recur for each child node to find its depth
+
+if __name__ == '__main__':
+    n = int(input())  # Read the number of lines of XML input
+    xml = ""
+    for i in range(n):
+        xml += input() + "\n"  # Read each line and construct the XML string
+    
+    # Parse the XML string into an ElementTree object
+    tree = etree.ElementTree(etree.fromstring(xml))
+    # Call the depth function starting from the root node with initial level -1
+    depth(tree.getroot(), -1)
+    # Print the maximum depth found in the XML tree
+    print(maxdepth)
