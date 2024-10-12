@@ -1110,3 +1110,379 @@ if __name__ == '__main__':
     n = int(input())  # Read an integer input n from the user.
     # Generate a list of Fibonacci numbers and map the cube function to each number.
     print(list(map(cube, fibonacci(n))))  # Print the cubed Fibonacci numbers.
+
+# REGEX AND PARSING CHALLENGES
+
+# Detect Floating Point Number
+def isFloat(N):
+    # Initialize an empty list to store the results.
+    result = []
+    # Iterate over each element n in the input list N.
+    for n in N:
+        # Check if n is a valid floating-point number according to specified criteria.
+        if (((n[0].isdigit() or n[0] == ".")  # The first character should be a digit or a decimal point.
+             or (len(n) > 1 and (n[0] in ["+", "-"] and (n[1].isdigit() or n[1] == "."))))  # Allow for + or - followed by a digit or a decimal point.
+             and not any(c.isalpha() for c in n)  # Ensure there are no alphabetic characters in n.
+             and not n[-1] == "."  # The last character should not be a decimal point.
+             and n.count(".") == 1  # There should be exactly one decimal point in n.
+             and "+" not in n[1:]  # The '+' character should not appear after the first position.
+             and "-" not in n[1:]):  # The '-' character should not appear after the first position.
+            result.append("True")  # If n is valid, append "True" to the result list.
+        else:
+            result.append("False")  # If n is not valid, append "False" to the result list.
+    return "\n".join(result)  # Return the result list joined by new lines.
+
+if __name__ == '__main__':
+    T = int(input())  # Read an integer input T (number of test cases).
+    N = [input() for _ in range(T)]  # Read T strings as input for testing.
+    print(isFloat(N))  # Call isFloat function and print the result.
+
+# Re.split()
+# Define a regular expression pattern to split numbers using commas or periods.
+# This pattern matches a comma or period that is preceded by a digit and followed by a digit.
+regex_pattern = r"(?<=\d)[,.](?=\d)"
+
+import re  # Import the regular expression module.
+# Read a line of input, split it using the defined regex pattern, and print the resulting parts.
+# Each part is printed on a new line.
+print("\n".join(re.split(regex_pattern, input())))
+
+# Group(), Groups() & Groupdict()
+import re  # Import the regular expression module.
+
+def firstRep(s):
+    # Use a regex to search for the first repeated character in the string.
+    # The pattern r'([a-zA-Z0-9])\1' looks for any alphanumeric character that is repeated immediately after itself.
+    rep = re.search(r'([a-zA-Z0-9])\1', s)
+    
+    # If a repeated character is found, return it; otherwise, return -1.
+    return(rep.group(1) if rep else -1)
+
+if __name__ == '__main__':
+    s = input()  # Read a string from input.
+    print(firstRep(s))  # Print the first repeated character or -1 if none is found.
+
+# Re.findall() & Re.finditer()
+import re  # Import the regular expression module.
+
+def match(s):
+    # Use re.findall to search for sequences of two or more vowels (a, e, i, o, u) 
+    # that are surrounded by consonants.
+    # The regex pattern:
+    # - (?<=[qwrtypsdfghjklzxcvbnmQWRTYPSDFGHJKLZXCVBNM]): Positive lookbehind assertion to ensure
+    #   that the matched vowels are preceded by a consonant (case insensitive).
+    # - ([aeiouAEIOU]{2,}): Capture group to match two or more vowels.
+    # - (?=[qwrtypsdfghjklzxcvbnmQWRTYPSDFGHJKLZXCVBNM]): Positive lookahead assertion to ensure
+    #   that the matched vowels are followed by a consonant (case insensitive).
+    matches = re.findall(r'(?<=[qwrtypsdfghjklzxcvbnmQWRTYPSDFGHJKLZXCVBNM])([aeiouAEIOU]{2,})(?=[qwrtypsdfghjklzxcvbnmQWRTYPSDFGHJKLZXCVBNM])', s)
+    
+    # If matches are found, join them with newline characters and return the result.
+    # If no matches are found, return -1.
+    return("\n".join(matches) if matches else -1)
+
+if __name__ == '__main__':
+    s = input()  # Read a string from input.
+    print(match(s))  # Print the matched vowel sequences or -1 if none are found.
+
+# Re.start() & Re.end()
+def indices(S, k):
+    indices = []  # Initialize an empty list to store the indices of occurrences.
+    start = 0  # Set the starting position for searching.
+
+    # Use a while loop to find all occurrences of the substring k in S.
+    while (start := S.find(k, start)) != -1:
+        # If k is found, append a tuple with the start and end indices to the list.
+        indices.append((start, start + len(k) - 1))
+        start += 1  # Move to the next position for the next search.
+
+    # Return the indices as a formatted string or (-1, -1) if no occurrences are found.
+    return "\n".join(map(str, indices)) if indices else "(-1, -1)"
+
+if __name__ == '__main__':
+    S = input().strip()  # Read the input string S and remove leading/trailing whitespace.
+    k = input().strip()  # Read the substring k to find in S.
+    print(indices(S, k))  # Print the result of the indices function.
+
+# Regex Substitution
+import re
+
+def converter(text):
+    # Replace "&&" with "and" and "||" with "or" in the given text.
+    # The regex ensures that these replacements happen only when
+    # they are surrounded by spaces, indicating they are standalone operators.
+    return re.sub(r"(?<= )&&(?= )", "and", re.sub(r"(?<= )\|\|(?= )", "or", text))
+
+if __name__ == '__main__':
+    N = int(input())  # Read the number of lines of input.
+    # Read N lines of input and join them into a single string with newlines.
+    text = "\n".join(input() for _ in range(N))
+    print(converter(text))  # Print the converted text.
+
+# Validating Roman Numerals
+import re
+# Define the regex pattern for validating Roman numerals
+# The pattern breakdown:
+# ^          : Asserts the start of the string
+# M{0,3}    : Matches 0 to 3 'M's (1000-3000)
+# (CM|CD|D?C{0,3}) : Matches 'CM' (900), 'CD' (400), or 0-3 'C's with an optional 'D' (500) (100-800)
+# (XC|XL|L?X{0,3}) : Matches 'XC' (90), 'XL' (40), or 0-3 'X's with an optional 'L' (50) (10-80)
+# (IX|IV|V?I{0,3}) : Matches 'IX' (9), 'IV' (4), or 0-3 'I's with an optional 'V' (5) (1-8)
+# $          : Asserts the end of the string
+
+regex_pattern = r"^M{0,3}(CM|CD|D?C{0,3})(XC|XL|L?X{0,3})(IX|IV|V?I{0,3})$"
+
+# Read input, match against the regex pattern, and print True or False
+print(str(bool(re.match(regex_pattern, input()))))
+
+# Validating phone numbers
+import re
+
+def validator(numbers):
+    # Define the regex pattern for validating Indian mobile numbers
+    # The pattern breakdown:
+    # ^          : Asserts the start of the string
+    # [789]      : The first digit must be 7, 8, or 9
+    # \d{9}      : Followed by exactly 9 digits (0-9)
+    # $          : Asserts the end of the string
+    regex_pattern = r"^[789]\d{9}$"
+    
+    # Use a list comprehension to check each number against the regex pattern
+    return "\n".join(["YES" if re.match(regex_pattern, number) else "NO" for number in numbers])
+
+if __name__ == "__main__":
+    N = int(input())  # Read the number of phone numbers
+    # Read N phone numbers and strip any leading/trailing whitespace
+    numbers = [input().strip() for _ in range(N)]
+    
+    # Validate the numbers and print the results
+    print(validator(numbers))
+
+# Validating and Parsing Email Addresses
+import re
+import email.utils
+
+def validator(couples):
+    # Define the regex pattern for validating email addresses
+    # The pattern breakdown:
+    # ^                : Asserts the start of the string
+    # [a-zA-Z]        : The first character must be a letter (uppercase or lowercase)
+    # [\w.-]+         : Followed by one or more word characters (letters, digits, underscores),
+    #                   dots, or hyphens
+    # @                : There must be an '@' symbol
+    # [a-zA-Z]+       : The domain name must consist of one or more letters
+    # \.               : Followed by a dot
+    # [a-zA-Z]{1,3}   : The domain extension must consist of 1 to 3 letters
+    # $                : Asserts the end of the string
+    regex_pattern = r"^[a-zA-Z][\w.-]+@[a-zA-Z]+\.[a-zA-Z]{1,3}$"
+    
+    # Use a list comprehension to filter and format valid email addresses
+    return "\n".join([f"{name} <{address}>" for name, address in couples if re.match(regex_pattern, address)])
+
+if __name__ == "__main__":
+    n = int(input())  # Read the number of email address/name pairs
+    # Parse n email address/name pairs using email.utils.parseaddr
+    couples = [email.utils.parseaddr(input().strip()) for _ in range(n)]
+    
+    # Validate the couples and print the formatted valid email addresses
+    print(validator(couples))
+
+# Hex Color Code
+import re
+
+def colorCodes(CSS):
+    # Define the regex pattern for matching hexadecimal color codes
+    # Breakdown of the regex pattern:
+    # (?<!^)           : Negative lookbehind to ensure that the match does not start at the beginning of the string
+    # #                : Matches the '#' character that starts a hex color code
+    # (?:[0-9a-fA-F]{6}|[0-9a-fA-F]{3}) : Non-capturing group that matches either:
+    #   - [0-9a-fA-F]{6} : Exactly 6 hexadecimal digits (0-9, a-f, A-F)
+    #   - [0-9a-fA-F]{3} : Exactly 3 hexadecimal digits (0-9, a-f, A-F)
+    regex_pattern = r'(?<!^)(#(?:[0-9a-fA-F]{6}|[0-9a-fA-F]{3}))'
+    
+    hex_codes = []  # Initialize a list to store found hex color codes
+    for code in CSS:  # Iterate over each line of CSS input
+        # Use re.findall to find all occurrences of the hex color pattern in the current line
+        hex_codes.extend(re.findall(regex_pattern, code))
+    
+    # Join the found hex codes with new line characters and return the result
+    return "\n".join(hex_codes)
+
+if __name__ == "__main__":
+    N = int(input())  # Read the number of CSS lines
+    # Read N lines of CSS input, stripping any leading or trailing whitespace
+    CSS = [input().strip() for _ in range(N)]
+    
+    # Print the extracted hexadecimal color codes
+    print(colorCodes(CSS))
+
+# HTML Parser - Part 1
+from html.parser import HTMLParser
+
+# Define a custom HTML parser class that inherits from HTMLParser
+class MyHTMLParser(HTMLParser):
+    # Handle start tags
+    def handle_starttag(self, tag, attrs):
+        print(f"Start : {tag}")  # Print the start tag
+        for attr in attrs:  # Iterate over the attributes of the tag
+            # Print the attribute name and its value, or 'None' if the value is missing
+            print(f"-> {attr[0]} > {attr[1] if attr[1] else 'None'}")
+        
+    # Handle end tags
+    def handle_endtag(self, tag):
+        print(f"End   : {tag}")  # Print the end tag
+        
+    # Handle self-closing tags (start-end tags)
+    def handle_startendtag(self, tag, attrs):
+        print(f"Empty : {tag}")  # Print the self-closing tag
+        for attr in attrs:  # Iterate over the attributes of the tag
+            # Print the attribute name and its value, or 'None' if the value is missing
+            print(f"-> {attr[0]} > {attr[1] if attr[1] else 'None'}")
+
+# Main block to execute the parser
+if __name__ == "__main__":
+    parser = MyHTMLParser()  # Create an instance of the custom parser
+    for _ in range(int(input())):  # Read the number of lines to parse
+        parser.feed(input().strip())  # Feed each line of input to the parser
+
+# HTML Parser - Part 2
+from html.parser import HTMLParser
+
+# Define a custom HTML parser class that inherits from HTMLParser
+class MyHTMLParser(HTMLParser):
+    # Handle comments in the HTML
+    def handle_comment(self, data):
+        # Check if the comment is multi-line or single-line
+        print(">>> Multi-line Comment" if '\n' in data else ">>> Single-line Comment")
+        print(data)  # Print the comment data
+
+    # Handle text data in the HTML
+    def handle_data(self, data):
+        # Print the data only if it is not just whitespace
+        if data.strip():
+            print(">>> Data\n" + data)  # Print the data with a preceding label
+
+# Main block to execute the parser
+if __name__ == "__main__":
+    html = ""  # Initialize an empty string to store HTML input
+    # Read multiple lines of HTML input
+    for i in range(int(input())):
+        html += input().rstrip()  # Append each line to the html string
+        html += '\n'  # Add a newline character to separate lines
+        
+    parser = MyHTMLParser()  # Create an instance of the custom parser
+    parser.feed(html)  # Feed the HTML string to the parser
+    parser.close()  # Close the parser
+
+# Detect HTML Tags, Attributes and Attribute Values
+from html.parser import HTMLParser
+
+# Define a custom HTML parser class that inherits from HTMLParser
+class MyHTMLParser(HTMLParser):
+    # Handle start tags (e.g., <tag>)
+    def handle_starttag(self, tag, attrs):
+        print(tag)  # Print the name of the tag
+        # Iterate through the attributes of the tag
+        for attr in attrs:
+            # Print the attribute name and its corresponding value
+            print(f'-> {attr[0]} > {attr[1]}')
+
+# Main block to execute the parser
+if __name__ == "__main__":
+    n = int(input())  # Read the number of lines of HTML input
+    parser = MyHTMLParser()  # Create an instance of the custom parser
+    for _ in range(n):
+        # Feed each line of HTML input to the parser
+        parser.feed(input().rstrip())  # Remove trailing spaces before feeding
+
+# Validating UID
+import re
+
+def validator(UIDs):
+    results = []  # Initialize a list to store the validation results for each UID
+    for UID in UIDs:
+        # Check the following conditions for a valid UID:
+        valid = (
+            len(UID) == 10 and  # UID must be exactly 10 characters long
+            re.match(r'^[A-Za-z0-9]+$', UID) and  # UID must contain only alphanumeric characters
+            len(set(UID)) == len(UID) and  # All characters in the UID must be unique
+            sum(c.isupper() for c in UID) >= 2 and  # At least 2 uppercase letters
+            sum(c.isdigit() for c in UID) >= 3  # At least 3 digits
+        )
+        # Append "Valid" if all conditions are met, otherwise append "Invalid"
+        results.append("Valid" if valid else "Invalid")
+    
+    # Join the results into a single string separated by newlines
+    return '\n'.join(results)
+
+if __name__ == "__main__":
+    N = int(input())  # Read the number of UIDs to validate
+    UIDs = [input().strip() for _ in range(N)]  # Read each UID and remove any surrounding whitespace
+    print(validator(UIDs))  # Validate the UIDs and print the results
+
+# Validating Credit Card Numbers
+import re
+
+def validator(card_numbers):
+    results = []  # Initialize a list to store validation results for each card number
+    for card in card_numbers:
+        # Define the regex pattern to validate the card number
+        pattern = r'^(?!.*(\d)(?:-?\1){3})[4-6]\d{3}-?\d{4}-?\d{4}-?\d{4}$'
+        
+        # Check if the card matches the pattern and the count of hyphens is either 0 or 3
+        if re.match(pattern, card) and card.count('-') in {0, 3}:
+            if '-' in card:  # If the card contains hyphens
+                groups = card.split('-')  # Split the card number into groups
+                # Check if each group has exactly 4 digits
+                if all(len(group) == 4 for group in groups):
+                    results.append("Valid")  # Valid card number
+                    continue
+                else:
+                    results.append("Invalid")  # Invalid group length
+                    continue
+            results.append("Valid")  # Valid card number without hyphens
+        else:
+            results.append("Invalid")  # Invalid card number
+    return '\n'.join(results)  # Return all results as a single string separated by newlines
+
+if __name__ == "__main__":
+    N = int(input())  # Read the number of card numbers to validate
+    card_numbers = [input().strip() for _ in range(N)]  # Read each card number and strip whitespace
+    print(validator(card_numbers))  # Validate the card numbers and print results
+
+# Validating Postal Codes
+import re
+
+# Regular expression to match integers in the range of 000000 to 999999
+# Allows numbers from 1 to 999999 (without leading zeros) or exactly 000000.
+regex_integer_in_range = r"^(?:[1-9]\d{5}|0{6})$"  # Do not delete 'r'.
+
+# Regular expression to find alternating repetitive digit pairs.
+# Uses a lookahead to check for two consecutive identical digits (e.g., 11, 22, etc.).
+regex_alternating_repetitive_digit_pair = r"(?=(\d)(?=\d\1))"  # Do not delete 'r'.
+
+# Read the input string
+P = input()
+
+# Check if the input matches the integer range pattern and if there are less than two alternating repetitive digit pairs
+is_valid = (
+    bool(re.match(regex_integer_in_range, P)) and 
+    len(re.findall(regex_alternating_repetitive_digit_pair, P)) < 2
+)
+
+# Print the result: True if both conditions are satisfied, otherwise False
+print(is_valid)
+
+# Matrix Script
+#!/bin/python3
+import re
+# Read the dimensions of the matrix
+size = list(map(int, input().split()))
+
+# Initialize the matrix
+matrix = [input() for _ in range(size[0])]
+
+# Decode the script by reading column-wise
+dec_matrix = ''.join(matrix[n][m] for m in range(size[1]) for n in range(size[0]))
+
+# Print the final output
+print(re.sub(r'(?<=\w)([^\w]+)(?=\w)', ' ', dec_matrix))
