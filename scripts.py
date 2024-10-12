@@ -1083,3 +1083,30 @@ def sortAlfa(s):
 if __name__ == '__main__':
     s = input()  # Read input from the user.
     print(sortAlfa(s))  # Print the sorted result.
+
+# PYTHON FUNCTIONALS
+
+# Map and Lambda Function
+# Define a lambda function to calculate the cube of a number.
+cube = lambda x: x ** 3 
+
+def fibonacci(n):
+    # Initialize an empty list to store Fibonacci numbers.
+    fibonacci_list = []
+    # Continue generating Fibonacci numbers until we have n numbers.
+    while len(fibonacci_list) < n:
+        # Append the first Fibonacci number.
+        if len(fibonacci_list) == 0:
+            fibonacci_list.append(0)
+        # Append the second Fibonacci number.
+        elif len(fibonacci_list) == 1:
+            fibonacci_list.append(1)
+        # Calculate and append the next Fibonacci number.
+        else:
+            fibonacci_list.append(fibonacci_list[-2] + fibonacci_list[-1])
+    return fibonacci_list  # Return the list of Fibonacci numbers.
+
+if __name__ == '__main__':
+    n = int(input())  # Read an integer input n from the user.
+    # Generate a list of Fibonacci numbers and map the cube function to each number.
+    print(list(map(cube, fibonacci(n))))  # Print the cubed Fibonacci numbers.
