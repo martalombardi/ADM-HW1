@@ -977,3 +977,26 @@ if __name__ == '__main__':
         delta = time_delta(t1, t2)  # Calculate the time difference.
         fptr.write(delta + '\n')  # Write the result to the output file.
     fptr.close()  # Close the output file.
+
+# EXCEPTIONS
+
+#Exceptions
+# Function to perform integer division and handle exceptions.
+def division(operands):
+    result = []  # Initialize an empty list to store results.
+    for couple in operands:  # Iterate over each pair of operands.
+        try:
+            # Attempt integer division and append the result.
+            result.append(int(couple[0]) // int(couple[1]))
+        except ZeroDivisionError as e:
+            # Handle division by zero and append the error message.
+            result.append(f"Error Code: {e}")
+        except ValueError as e:
+            # Handle value errors (e.g., invalid input) and append the error message.
+            result.append(f"Error Code: {e}")
+    return '\n'.join(map(str, result))  # Return the results as a newline-separated string.
+
+if __name__ == '__main__':
+    T = int(input())  # Input the number of test cases.
+    operands = [input().strip().split() for _ in range(T)]  # Input each pair of operands.
+    print(division(operands))  # Output the results of the division.
