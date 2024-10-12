@@ -934,3 +934,46 @@ if __name__ == '__main__':
         block = list(map(int, input().strip().split()))  # Input the block heights.
         blocks.append(block)  # Add to the list of blocks.
     print(stack(blocks))  # Output the stacking results.
+
+# DATE AND TIME
+
+# Calendar Module
+# Function to determine the capitalized name of the day of the week for a given date.
+import calendar
+
+def capitalDay(date):
+    month = int(date[0])  # Extract the month from the date.
+    day = int(date[1])    # Extract the day from the date.
+    year = int(date[2])   # Extract the year from the date.
+    return calendar.day_name[calendar.weekday(year, month, day)].upper()  # Return the day name in uppercase.
+
+if __name__ == '__main__':
+    date = list(input().strip().split())  # Input the date as a list of strings.
+    print(capitalDay(date))  # Output the capitalized day name.
+
+# Time Delta
+# Function to calculate the absolute time difference in seconds between two datetime strings.
+#!/bin/python3
+
+import os
+from datetime import datetime
+
+def time_delta(t1, t2):
+    format = "%a %d %b %Y %H:%M:%S %z"  # Define the format for the datetime strings.
+    
+    dt1 = datetime.strptime(t1, format)  # Parse the first datetime string.
+    dt2 = datetime.strptime(t2, format)  # Parse the second datetime string.
+    
+    abs_diff = abs((dt1 - dt2).total_seconds())  # Calculate the absolute difference in seconds.
+    
+    return str(int(abs_diff))  # Return the difference as a string.
+
+if __name__ == '__main__':
+    fptr = open(os.environ['OUTPUT_PATH'], 'w')  # Open output file.
+    t = int(input())  # Input the number of test cases.
+    for t_itr in range(t):
+        t1 = input()  # Input the first datetime string.
+        t2 = input()  # Input the second datetime string.
+        delta = time_delta(t1, t2)  # Calculate the time difference.
+        fptr.write(delta + '\n')  # Write the result to the output file.
+    fptr.close()  # Close the output file.
