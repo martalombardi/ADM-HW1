@@ -750,3 +750,187 @@ if __name__ == '__main__':
         sets.append(set(map(int, input().strip().split())))  # Input the elements of each set B.
     print(superSet(A, sets))  # Output "True" if A is a strict superset of all sets, otherwise "False".
 
+# COLLECTIONS
+
+# collections.Counter()
+# Function to calculate profit based on available sizes and desired sizes.
+from collections import Counter
+
+def counter(sizes, desired_sizes):
+    occ_size = Counter(sizes)  # Count occurrences of each size.
+    profit = 0
+    for size in desired_sizes:
+        if occ_size[size[0]] > 0:  # If the desired size is available.
+            profit += size[1]  # Add the profit for this size.
+            occ_size[size[0]] -= 1  # Decrease the count of the available size.
+    return profit  # Return the total profit.
+
+if __name__ == '__main__':
+    X = int(input())  # Input the total number of sizes available.
+    sizes = list(map(int, input().strip().split()))  # Input the available sizes.
+    N = int(input())  # Input the number of desired sizes.
+    desired_sizes = [list(map(int, input().strip().split())) for _ in range(N)]  # Input desired sizes with profits.
+    print(counter(sizes, desired_sizes))  # Output the total profit.
+
+# DefaultDict Tutorial
+# Function to index words and return their positions based on given lists.
+from collections import defaultdict
+
+def index(A, B):
+    d = defaultdict(list)  # Create a default dictionary with lists.
+    result = ""
+    for i in range(len(A)):
+        d[A[i]].append(i + 1)  # Store positions (1-indexed) of each word in A.
+    for word in B:
+        # Get the positions of each word in B, return -1 if not found.
+        result = result + ' '.join(map(str, d.get(word, [-1]))) + "\n"
+    return result  # Return the formatted result.
+
+if __name__ == '__main__':
+    size = list(map(int, input().strip().split()))  # Input sizes for A and B.
+    A = [input() for _ in range(size[0])]  # Input words for list A.
+    B = [input() for _ in range(size[1])]  # Input words for list B.
+    print(index(A, B))  # Output the indexed positions.
+
+# Collections.namedtuple()
+# Function to calculate the average marks of students using namedtuple.
+from collections import namedtuple
+
+def avg(N, students):
+    # Calculate the average marks from the list of students.
+    return sum([int(student.MARKS) for student in students]) / N
+
+if __name__ == '__main__':
+    N = int(input())  # Input the number of students.
+    names = list(input().strip().split())  # Input the names of the attributes.
+    Student = namedtuple('Student', ', '.join(names[:4]))  # Define a namedtuple for student attributes.
+    # Unpacking operator * to create student instances from input.
+    students = [Student(*input().strip().split()) for _ in range(N)]
+    print(avg(N, students))  # Output the average marks.
+
+# Collections.OrderedDict()
+# Function to accumulate item quantities using OrderedDict.
+from collections import OrderedDict
+
+def ordered(N, items_list):
+    items = OrderedDict()  # Create an OrderedDict to maintain the order of items.
+
+    for item in items_list:
+        key, value = ' '.join(item[:-1]), int(item[-1])  # Combine all but the last item as key, last item as value.
+        items[key] = items.get(key, 0) + value  # Accumulate values for each key.
+
+    return '\n'.join(f"{key} {value}" for key, value in items.items())  # Return formatted result.
+
+if __name__ == '__main__':
+    N = int(input())  # Input the number of items.
+    items_list = [list(map(str, input().strip().split())) for _ in range(N)]  # Input item details.
+    print(ordered(N, items_list))  # Output accumulated items.
+
+# Word Order
+# Function to count unique words and their occurrences in order.
+from collections import OrderedDict
+
+def occ(words_list):
+    words = OrderedDict()  # Use an OrderedDict to maintain insertion order.
+
+    for word in words_list:
+        words[word] = words.get(word, 0) + 1  # Count occurrences of each word.
+    
+    return str(len(words)) + '\n' + ' '.join(f"{value}" for value in words.values())  # Format output.
+
+if __name__ == '__main__':
+    n = int(input())  # Input the number of words.
+    words_list = [input() for _ in range(n)]  # Input words.
+    print(occ(words_list))  # Output the word count and occurrences.
+
+# Collections.deque()
+# Function to perform operations on a deque based on given commands.
+from collections import deque
+
+def operate(commands):
+    d = deque()  # Initialize a deque.
+    
+    for command in commands:
+        match command[0]:
+            case "append":
+                d.append(command[1])  # Append to the right.
+            case "pop":
+                d.pop()  # Remove from the right.
+            case "popleft":
+                d.popleft()  # Remove from the left.
+            case "appendleft":
+                d.appendleft(command[1])  # Append to the left.
+    
+    return ' '.join(map(str, d))  # Return the elements in the deque as a string.
+
+if __name__ == '__main__':
+    N = int(input())  # Input the number of commands.
+    commands = [input().strip().split() for _ in range(N)]  # Input the commands.
+    print(operate(commands))  # Output the final state of the deque.
+
+# Company Logo
+# Function to generate a logo based on character occurrences.
+from collections import Counter, OrderedDict
+
+def logo(s):
+    occ = Counter(s)  # Count occurrences of each character.
+    recurrent_ch = OrderedDict()  # Maintain order of characters.
+    len_logo = 3  # Limit the logo to 3 characters.
+    
+    while len_logo > 0:
+        max_occ = max(occ.values())  # Find the maximum occurrence.
+        max_ch = sorted([c for c in occ.keys() if occ[c] == max_occ])  # Sort characters by max occurrence.
+        len_max_ch = len(max_ch)  # Number of characters with max occurrence.
+        
+        if len_max_ch > len_logo:  # If more than 3 characters have the same max occurrence, take the first 3.
+            max_ch = max_ch[:len_logo]
+        
+        for c in max_ch:
+            recurrent_ch[c] = max_occ  # Add to result and remove from count.
+            del occ[c]
+        
+        len_logo -= len_max_ch  # Decrease the remaining length to fill.
+    
+    formatted_result = '\n'.join(f"{key} {value}" for key, value in recurrent_ch.items())  # Format the output.
+    return formatted_result  
+
+if __name__ == '__main__':
+    s = input()  # Input the string for the logo.
+    print(logo(s))  # Output the logo representation.
+
+# Piling Up!
+# Function to determine if blocks can be stacked based on specified rules.
+def stack(blocks):
+    result = []
+    
+    for block in blocks:
+        left_idx, right_idx = 0, len(block) - 1  # Initialize left and right indices.
+        prev_height = float('inf')  # Previous height set to infinity.
+        can_stack = True  # Assume stacking is possible.
+        
+        while left_idx <= right_idx:
+            if block[left_idx] >= block[right_idx]:  # Choose the larger block.
+                current_height = block[left_idx]
+                left_idx += 1
+            else:
+                current_height = block[right_idx]
+                right_idx -= 1
+
+            if current_height > prev_height:  # Check if the current height exceeds the previous height.
+                can_stack = False  # Stacking is not possible.
+                break
+            
+            prev_height = current_height  # Update previous height for next iteration.
+        
+        result.append("Yes" if can_stack else "No")  # Append result for the current block.
+
+    return "\n".join(result)  # Return all results.
+
+if __name__ == '__main__':
+    T = int(input())  # Input the number of test cases.
+    blocks = []
+    for _ in range(T):
+        n = int(input())  # Input the number of blocks.
+        block = list(map(int, input().strip().split()))  # Input the block heights.
+        blocks.append(block)  # Add to the list of blocks.
+    print(stack(blocks))  # Output the stacking results.
