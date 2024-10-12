@@ -536,3 +536,217 @@ def merge_the_tools(string, k):
 if __name__ == '__main__':
     string, k = input(), int(input())  # Input string and integer k
     merge_the_tools(string, k)  # Call the function to merge tools
+
+# SETS
+    
+# Introduction to Sets
+# This function calculates the average of unique elements from an array.
+def average(array):
+    unique = set(array)  # Convert array to a set to remove duplicates
+    avg = round(sum(unique)/len(unique), 3)  # Calculate the average, rounded to 3 decimal places
+    return avg
+
+if __name__ == '__main__':
+    n = int(input())  # Input the number of elements
+    arr = list(map(int, input().split()))  # Input the array of elements
+    result = average(arr)  # Call the average function
+    print(result)  # Print the result
+
+# No Idea!
+# This function calculates happiness based on two sets A and B.
+def happiness(arr, A, B):
+    A = set(A)  # Convert A to a set
+    B = set(B)  # Convert B to a set
+    # Add 1 if element is in A, subtract 1 if in B, else add 0
+    return sum((1 if e in A else -1 if e in B else 0) for e in arr)
+
+if __name__ == '__main__':
+    size = list(map(int, input().rstrip().split()))  # Input the sizes of arrays
+    arr = list(map(int, input().rstrip().split()))  # Input the main array
+    A = list(map(int, input().rstrip().split()))  # Input set A
+    B = list(map(int, input().rstrip().split()))  # Input set B
+    print(happiness(arr, A, B))  # Print the happiness score
+
+# Symmetric Difference
+# This function calculates and prints the symmetric difference of two sets.
+def symmetricDifference(a, b):
+    symDiff = []  # List to store symmetric difference elements
+    set_a = set(a)  # Convert a to a set
+    set_b = set(b)  # Convert b to a set
+    # Loop through set_a and add elements not in set_b
+    for e in set_a:
+        if e not in set_b:
+            symDiff.append(e)
+        else:
+            set_b.remove(e)  # Remove common elements from set_b
+    symDiff = sorted(symDiff + list(set_b))  # Sort the final symmetric difference list
+    print('\n'.join(list(map(str, symDiff))))  # Print each element on a new line
+
+if __name__ == '__main__':
+    M = int(input())  # Input size of set a
+    a = list(map(int, input().rstrip().split()))  # Input elements of set a
+    N = int(input())  # Input size of set b
+    b = list(map(int, input().rstrip().split()))  # Input elements of set b
+    symmetricDifference(a, b)  # Call the function to print the symmetric difference
+
+# Set.add()
+# This function counts the number of distinct countries.
+def distinctCountry(N, country_stamps):
+    distinct = set()  # Create an empty set to store distinct countries
+    for country in country_stamps:
+        if country not in distinct:
+            distinct.add(country)  # Add country to the set if not already present
+    return len(distinct)  # Return the number of distinct countries
+
+if __name__ == '__main__':
+    N = int(input())  # Input number of stamps
+    country_stamps = [input().strip() for _ in range(N)]  # Input the list of country names
+    print(distinctCountry(N, country_stamps))  # Print the number of distinct countries
+
+# Set .discard(), .remove() & .pop()
+# This function performs commands on a set and returns the sum of elements.
+def commandSum(s, commands):
+    for command in commands:
+        command_list = list(command.split())  # Split command into list
+        match command_list[0]:
+            case "discard":
+                s.discard(int(command_list[1]))  # Discard the element from the set
+            case "pop":
+                s.pop()  # Pop an element from the set
+            case "remove":
+                s.remove(int(command_list[1]))  # Remove the element from the set
+    return sum(s)  # Return the sum of elements in the set
+
+if __name__ == '__main__':
+    n = int(input())  # Input number of elements in set
+    s = set(map(int, input().split()))  # Input elements of set
+    N = int(input())  # Input number of commands
+    commands = [input().strip() for _ in range(N)]  # Input commands
+    print(commandSum(s, commands))  # Print the sum of elements after commands
+
+# Set .union() Operation
+# This function returns the size of the union of two sets.
+def union(arr1, arr2):
+    return len(arr1.union(arr2))  # Return the size of the union
+
+if __name__ == '__main__':
+    n1 = int(input())  # Input size of set 1
+    arr1 = set(map(int, input().strip().split()))  # Input elements of set 1
+    n2 = int(input())  # Input size of set 2
+    arr2 = set(map(int, input().strip().split()))  # Input elements of set 2
+    print(union(arr1, arr2))  # Print the size of the union
+
+# Set .intersection() Operation
+# This function returns the size of the intersection of two sets.
+def intersection(arr1, arr2):
+    return len(arr1.intersection(arr2))  # Return the size of the intersection
+
+if __name__ == '__main__':
+    n1 = int(input())  # Input size of set 1
+    arr1 = set(map(int, input().strip().split()))  # Input elements of set 1
+    n2 = int(input())  # Input size of set 2
+    arr2 = set(map(int, input().strip().split()))  # Input elements of set 2
+    print(intersection(arr1, arr2))  # Print the size of the intersection
+
+# Set .difference() Operation
+# This function returns the size of the difference between two sets.
+def difference(arr1, arr2):
+    return len(arr1.difference(arr2))  # Return the size of the difference
+
+if __name__ == '__main__':
+    n1 = int(input())  # Input size of set 1
+    arr1 = set(map(int, input().strip().split()))  # Input elements of set 1
+    n2 = int(input())  # Input size of set 2
+    arr2 = set(map(int, input().strip().split()))  # Input elements of set 2
+    print(difference(arr1, arr2))  # Print the size of the difference
+
+# Set .symmetric_difference() Operation
+# This function returns the size of the symmetric difference between two sets.
+def sym_difference(arr1, arr2):
+    return len(arr1.symmetric_difference(arr2))  # Return the size of the symmetric difference
+
+if __name__ == '__main__':
+    n1 = int(input())  # Input size of set 1
+    arr1 = set(map(int, input().strip().split()))  # Input elements of set 1
+    n2 = int(input())  # Input size of set 2
+    arr2 = set(map(int, input().strip().split()))  # Input elements of set 2
+    print(sym_difference(arr1, arr2))  # Print the size of the symmetric difference
+
+# Set Mutations
+# This function performs various mutations on a set and returns the sum of elements.
+def manipulation(A, commands):
+    for i in range(0, len(commands), 2):
+        command = commands[i].split()  # Parse command
+        command_list = [command[0], command[1], set(map(int, commands[i+1].strip().split()))]
+        match command_list[0]:
+            case "difference_update":
+                A.difference_update(command_list[2])  # Perform difference update
+            case "intersection_update":
+                A.intersection_update(command_list[2])  # Perform intersection update
+            case "symmetric_difference_update":
+                A.symmetric_difference_update(command_list[2])  # Perform symmetric difference update
+            case "update":
+                A.update(command_list[2])  # Perform update
+    return sum(A)  # Return the sum of elements in the set
+
+if __name__ == '__main__':
+    nA = int(input())  # Input size of set A
+    A = set(map(int, input().strip().split()))  # Input elements of set A
+    N = int(input())  # Input number of commands
+    commands = [input().strip() for _ in range(2 * N)]  # Input commands
+    print(manipulation(A, commands))  # Print the sum of elements after mutations
+
+# The Captain's Room
+# Function to find the captain's room number.
+def findCaptainRoom(K, room_list):
+    # Sum of unique room numbers multiplied by K minus total sum of room_list divided by K-1 gives the captain's room.
+    unique_sum = sum(set(room_list))
+    total_sum = sum(room_list)
+    captain_room = (unique_sum * K - total_sum) // (K - 1)
+    return captain_room  
+
+if __name__ == '__main__':
+    K = int(input())  # Input the size of family groups (excluding the captain).
+    rep_rooms = list(map(int, input().strip().split()))  # Input the room numbers of all family members and the captain.
+    print(findCaptainRoom(K, rep_rooms))  # Output the captain's room number.
+
+# Check Subset
+# Function to check if set A is a subset of set B for multiple test cases.
+def subSet(T, setA, setB):
+    result = []
+    for i in range(T):
+        # Check if set A is a subset of set B.
+        if(setA[i].difference(setB[i]) == set()):
+            result.append("True")
+        else:
+            result.append("False")
+    return '\n'.join(result)
+
+if __name__ == '__main__':
+    T = int(input())  # Input the number of test cases.
+    setA = []
+    setB = []
+    for _ in range(T):
+        nA = int(input())  # Input the size of set A.
+        setA.append(set(map(int, input().strip().split())))  # Input the elements of set A.
+        nB = int(input())  # Input the size of set B.
+        setB.append(set(map(int, input().strip().split())))  # Input the elements of set B.
+    print(subSet(T, setA, setB))  # Output "True" if set A is a subset of set B, otherwise "False".
+
+# Check Strict Superset
+# Function to check if set A is a strict superset of all sets in a list.
+def superSet(A, sets):
+    # Loop through each set B and check if A is a strict superset of B.
+    for B in sets:
+        if not(A > B):
+            return "False"
+    return "True"
+
+if __name__ == '__main__':
+    A = set(map(int, input().strip().split()))  # Input the elements of the superset A.
+    N = int(input())  # Input the number of sets to compare with A.
+    sets = []
+    for _ in range(N):
+        sets.append(set(map(int, input().strip().split())))  # Input the elements of each set B.
+    print(superSet(A, sets))  # Output "True" if A is a strict superset of all sets, otherwise "False".
+
