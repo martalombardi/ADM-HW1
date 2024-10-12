@@ -1610,3 +1610,331 @@ if __name__ == '__main__':
     n = int(input())  # Read the number of people
     people = [input().split() for _ in range(n)]  # Read people's details
     print(*name_format(people), sep='\n')  # Print formatted names
+
+# NUMPY
+
+# Arrays
+import numpy
+
+def arrays(arr):
+    # Convert the input list 'arr' from strings to floats, 
+    # create a NumPy array, and then flip it (reverse the order)
+    return(numpy.flip(numpy.array(list(map(float, arr)))))
+
+# Read a line of input, strip any extra whitespace, and split it into a list of strings
+arr = input().strip().split(' ')
+
+# Call the 'arrays' function with the input list and store the result
+result = arrays(arr)
+
+# Print the resulting flipped NumPy array
+print(result)
+
+# Shape and Reshape
+import numpy
+
+def npMatrix(arr):
+    # Create a NumPy array from the input list 'arr' and reshape it into a 3x3 matrix
+    return(numpy.reshape(numpy.array(arr), (3, 3)))
+
+if __name__ == '__main__':
+    # Read a line of input, strip any extra whitespace, split it into a list of strings,
+    # and convert each string to an integer to create a list of integers
+    arr = list(map(int, input().strip().split()))
+    
+    # Call the 'npMatrix' function with the input list and print the resulting 3x3 matrix
+    print(npMatrix(arr))
+
+# Transpose and Flatten
+import numpy
+
+def transposeFlatten(arr):
+    # Convert the input list 'arr' into a NumPy array
+    np_array = numpy.array(arr)
+    
+    # Transpose the NumPy array (swap rows and columns)
+    tr = numpy.transpose(np_array)
+    
+    # Flatten the NumPy array into a one-dimensional array
+    fl = np_array.flatten()
+    
+    # Return the transposed array and the flattened array as a tuple
+    return (tr, fl)
+
+if __name__ == '__main__':
+    # Read two integers N and M from input, which represent the number of rows and columns, respectively
+    N, M = map(int, input().strip().split())
+    
+    # Read N lines of input, each containing M integers, and create a list of lists (2D array)
+    arr = [list(map(int, input().strip().split())) for _ in range(N)]
+    
+    # Call the 'transposeFlatten' function with the input array and store the result
+    result = transposeFlatten(arr)
+    
+    # Print the transposed array
+    print(result[0])
+    
+    # Print the flattened array
+    print(result[1])
+
+# Concatenate
+import numpy
+
+def concatenate(arrN, arrM):
+    # Convert the input lists 'arrN' and 'arrM' into NumPy arrays
+    array_N = numpy.array(arrN)
+    array_M = numpy.array(arrM)
+    
+    # Concatenate the two arrays along the specified axis (0 for vertical stacking)
+    return numpy.concatenate((array_N, array_M), axis=0)
+
+if __name__ == '__main__':
+    # Read the dimensions of the arrays from input, where dim[0] is the number of rows for arrN,
+    # and dim[1] is the number of rows for arrM
+    dim = list(map(int, input().strip().split()))
+    
+    arrN = []  # Initialize an empty list to store the first array
+    # Loop to read 'dim[0]' rows of input for the first array
+    for _ in range(dim[0]):
+        row = list(map(int, input().strip().split()))  # Read a row and convert it to a list of integers
+        arrN.append(row)  # Append the row to arrN
+    
+    arrM = []  # Initialize an empty list to store the second array
+    # Loop to read 'dim[1]' rows of input for the second array
+    for _ in range(dim[1]):
+        row = list(map(int, input().strip().split()))  # Read a row and convert it to a list of integers
+        arrM.append(row)  # Append the row to arrM
+    
+    # Print the result of concatenating arrN and arrM
+    print(concatenate(arrN, arrM))
+
+# Zeros and Ones
+import numpy
+
+def zerosOnes(shape):
+    # Create a NumPy array filled with zeros of the specified shape and with int64 data type
+    zeros = numpy.zeros(shape, dtype=numpy.int64)
+    # Create a NumPy array filled with ones of the specified shape and with int64 data type
+    ones = numpy.ones(shape, dtype=numpy.int64)
+    # Return a formatted string containing both arrays, separated by a newline
+    return f"{zeros}\n{ones}"
+
+if __name__ == '__main__':
+    # Read the shape of the arrays from input, splitting the input string and converting to integers
+    shape = list(map(int, input().strip().split()))
+    # Print the result of the zerosOnes function, which returns the arrays formatted as a string
+    print(zerosOnes(shape))
+
+# Eye and Identity
+import numpy
+
+# Set the print options for NumPy arrays to be compatible with legacy formatting from version 1.13
+numpy.set_printoptions(legacy='1.13')
+
+def diagonal(size):
+    # Create a diagonal matrix (identity matrix) of specified dimensions (size)
+    return numpy.eye(size[0], size[1], k=0)  # k=0 indicates the main diagonal
+
+if __name__ == '__main__':
+    # Read the size of the matrix from input, splitting the input string and converting to integers
+    size = list(map(int, input().strip().split()))
+    # Print the resulting diagonal matrix created by the diagonal function
+    print(diagonal(size))
+
+# Array Mathematics
+import numpy
+
+def operations(A, B):
+    # Perform various operations on two NumPy arrays A and B
+    add = numpy.add(A, B)  # Element-wise addition of A and B
+    sub = numpy.subtract(A, B)  # Element-wise subtraction of B from A
+    mul = numpy.multiply(A, B)  # Element-wise multiplication of A and B
+    div = A // B  # Element-wise integer division of A by B (using floor division)
+    mod = numpy.mod(A, B)  # Element-wise modulus operation (remainder of A divided by B)
+    power = numpy.power(A, B)  # Element-wise exponentiation (A raised to the power of B)
+
+    # Return the results of the operations formatted as a single string with newlines
+    return (f"{add}\n{sub}\n{mul}\n{div}\n{mod}\n{power}")
+
+if __name__ == '__main__':
+    # Read the size of the arrays from input (expected to be two integers)
+    size = list(map(int, input().strip().split()))
+
+    # Create the first array A by reading 'size[0]' rows of input
+    A = numpy.array([list(map(int, input().strip().split())) for _ in range(size[0])])
+
+    # Create the second array B similarly to A
+    B = numpy.array([list(map(int, input().strip().split())) for _ in range(size[0])])
+
+    # Print the results of operations performed on arrays A and B
+    print(operations(A, B))
+
+# Floor, Ceil and Rint
+import numpy
+numpy.set_printoptions(legacy='1.13')  # Set the print options for NumPy arrays to legacy format (for compatibility)
+
+def approximate(arr):
+    # Calculate the floor, ceiling, and rounded values of the input array
+    floor = numpy.floor(arr)  # Apply the floor function to each element of the array (greatest integer less than or equal to the element)
+    ceil = numpy.ceil(arr)    # Apply the ceiling function to each element of the array (smallest integer greater than or equal to the element)
+    rint = numpy.rint(arr)    # Apply the rounding function to each element of the array (round to the nearest integer)
+
+    # Return the results formatted as a string with each result on a new line
+    return(f"{floor}\n{ceil}\n{rint}")
+    
+if __name__ == '__main__':
+    # Read a line of input, strip whitespace, split by spaces, and convert to a NumPy array of floats
+    arr = numpy.array(list(map(float, input().strip().split())))
+
+    # Print the results of the approximate function applied to the input array
+    print(approximate(arr))
+
+# Sum and Prod
+import numpy
+
+def sumProd(arr):
+    # Calculate the sum along the specified axis and the product of those sums
+    np_sum = numpy.sum(arr, axis=0)  # Compute the sum of the array along the columns (axis=0)
+    np_prod = numpy.prod(np_sum)      # Compute the product of the summed values
+    
+    return np_prod  # Return the product of the sums
+
+if __name__ == '__main__':
+    # Read two integers, N and M, from input, which represent the number of rows and columns, respectively
+    N, M = map(int, input().strip().split())
+    
+    # Create a 2D NumPy array by reading N lines of input, each containing M integers
+    arr = numpy.array([list(map(int, input().strip().split())) for _ in range(N)])
+    
+    # Print the result of the sumProd function applied to the input array
+    print(sumProd(arr))
+
+# Min and Max
+import numpy
+
+def minMax(arr):
+    # Calculate the maximum value among the minimum values of each row in the input array
+    np_min = numpy.min(arr, axis=1)  # Compute the minimum value for each row (axis=1)
+    np_max = numpy.max(np_min)        # Find the maximum value among the row minimums
+    
+    return np_max  # Return the maximum of the minimum values
+
+if __name__ == '__main__':
+    # Read two integers, N and M, from input, which represent the number of rows and columns, respectively
+    N, M = map(int, input().strip().split())
+    
+    # Create a 2D NumPy array by reading N lines of input, each containing M integers
+    arr = numpy.array([list(map(int, input().strip().split())) for _ in range(N)])
+    
+    # Print the result of the minMax function applied to the input array
+    print(minMax(arr))
+
+# Mean, Var and Std
+import numpy
+
+def stat(arr):
+    # Calculate statistical metrics for the input array
+    np_mean = numpy.mean(arr, axis=1)  # Compute the mean for each row (axis=1)
+    np_var = numpy.var(arr, axis=0)     # Compute the variance for each column (axis=0)
+    np_std = numpy.std(arr)              # Compute the standard deviation for the entire array
+    
+    # Format the standard deviation to 11 decimal places if it's greater than 0
+    if np_std > 0:
+        np_std = format(np_std, '.11f')
+    
+    # Return the mean, variance, and standard deviation as a formatted string
+    return f"{np_mean}\n{np_var}\n{np_std}"
+
+if __name__ == '__main__':
+    # Read two integers, N and M, from input, which represent the number of rows and columns, respectively
+    N, M = map(int, input().strip().split())
+    
+    # Create a 2D NumPy array by reading N lines of input, each containing M integers
+    arr = numpy.array([list(map(int, input().strip().split())) for _ in range(N)])
+    
+    # Print the result of the stat function applied to the input array
+    print(stat(arr))
+
+# Dot and Cross
+import numpy
+
+def matMul(A, B):
+    # Perform matrix multiplication using the dot product
+    return numpy.dot(A, B)  # Return the result of multiplying matrix A by matrix B
+
+if __name__ == '__main__':
+    # Read the size of the square matrices from input
+    N = int(input().strip())  # N represents the number of rows/columns in the square matrices
+
+    # Create the first matrix A by reading N lines of input, each containing N integers
+    A = numpy.array([list(map(int, input().strip().split())) for _ in range(N)])
+
+    # Create the second matrix B similarly
+    B = numpy.array([list(map(int, input().strip().split())) for _ in range(N)])
+
+    # Print the result of the matrix multiplication of A and B
+    print(matMul(A, B))
+
+# Inner and Outer
+import numpy
+
+def innerOut(A, B):
+    # Calculate the inner and outer products of vectors A and B
+    
+    inner = numpy.inner(A, B)  # Compute the inner product (dot product) of vectors A and B
+    outer = numpy.outer(A, B)  # Compute the outer product of vectors A and B
+    
+    # Return the results of inner and outer products as formatted strings
+    return f"{inner}\n{outer}"
+
+if __name__ == '__main__':
+    # Read vector A from input, convert the input string to a list of integers, and create a NumPy array
+    A = numpy.array(list(map(int, input().strip().split())))
+
+    # Read vector B in the same way
+    B = numpy.array(list(map(int, input().strip().split())))
+
+    # Print the results of the inner and outer products of vectors A and B
+    print(innerOut(A, B))
+
+# Polynomials 
+import numpy  # Import the NumPy library for numerical operations
+
+def polyX(P, x):
+    # Evaluate the polynomial P at the point x
+    return numpy.polyval(P, x)  # Use NumPy's polyval function to compute the polynomial value
+
+if __name__ == '__main__':
+    # Read the coefficients of the polynomial from input, convert the input string to a list of floats, and create a NumPy array
+    P = numpy.array(list(map(float, input().strip().split())))
+
+    # Read the value of x at which to evaluate the polynomial
+    x = int(input())
+
+    # Print the result of evaluating the polynomial at x
+    print(polyX(P, x))
+
+# Linear Algebra
+import numpy
+
+def det(A):
+    # Calculate the determinant of the matrix A using NumPy's linear algebra module
+    det = numpy.linalg.det(A)
+
+    # Check if the determinant is an integer value
+    if det == int(det):
+        # If it's an integer, format it to one decimal place
+        return f"{det:.1f}"
+    else:
+        # If it's not an integer, format it to two decimal places
+        return f"{det:.2f}"
+
+if __name__ == '__main__':
+    # Read the size of the matrix from input
+    N = int(input())
+
+    # Read the matrix A from input, converting each row into a list of floats
+    A = numpy.array([list(map(float, input().strip().split())) for _ in range(N)])
+
+    # Print the determinant of the matrix A by calling the det function
+    print(det(A))
