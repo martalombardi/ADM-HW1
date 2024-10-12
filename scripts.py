@@ -1,3 +1,5 @@
+# --------------------------------------- PROBLEM 1 ---------------------------------------
+
 # INTRODUCTION
 
 # Say "Hello, World!" With Python
@@ -1938,3 +1940,296 @@ if __name__ == '__main__':
 
     # Print the determinant of the matrix A by calling the det function
     print(det(A))
+
+# --------------------------------------- PROBLEM 2 ---------------------------------------
+
+# Birthday Cake Candles
+#!/bin/python3 
+
+import math
+import os
+import random
+import re
+import sys
+
+#
+# Complete the 'birthdayCakeCandles' function below.
+#
+# The function is expected to return an INTEGER.
+# The function accepts INTEGER_ARRAY candles as parameter.
+#
+
+def birthdayCakeCandles(candles):
+    # Find the maximum height of the candles
+    max_height = max(candles)
+    # Count how many candles have the maximum height and return that count
+    return candles.count(max_height)
+
+if __name__ == '__main__':
+    # Open the output file specified in the environment variable 'OUTPUT_PATH'
+    fptr = open(os.environ['OUTPUT_PATH'], 'w')
+
+    # Read the number of candles from input
+    candles_count = int(input().strip())
+
+    # Read the heights of the candles from input, split by space, and convert to integers
+    candles = list(map(int, input().rstrip().split()))
+
+    # Call the function to count the tallest candles
+    result = birthdayCakeCandles(candles)
+
+    # Write the result to the output file
+    fptr.write(str(result) + '\n')
+
+    # Close the output file
+    fptr.close()
+
+# Number Line Jumps
+#!/bin/python3
+
+import math
+import os
+import random
+import re
+import sys
+
+#
+# Complete the 'kangaroo' function below.
+#
+# The function is expected to return a STRING.
+# The function accepts the following parameters:
+#  1. INTEGER x1 - starting position of the first kangaroo
+#  2. INTEGER v1 - jump distance of the first kangaroo
+#  3. INTEGER x2 - starting position of the second kangaroo
+#  4. INTEGER v2 - jump distance of the second kangaroo
+#
+
+def kangaroo(x1, v1, x2, v2):
+    # Check if the kangaroos have the same jump distance
+    if v1 == v2:
+        # If they start at the same position, they will always be together
+        if x1 == x2:
+            return "YES"
+        else:
+            # If they start at different positions, they will never meet
+            return "NO"
+    
+    # Check if the kangaroo starting behind can catch up with the other kangaroo
+    if (x2 - x1) / (v1 - v2) > 0 and (x2 - x1) % (v1 - v2) == 0:
+        return "YES"  # They will meet
+    else:
+        return "NO"   # They will not meet
+
+if __name__ == '__main__':
+    # Open the output file specified in the environment variable 'OUTPUT_PATH'
+    fptr = open(os.environ['OUTPUT_PATH'], 'w')
+
+    # Read the input values as a single line, split by spaces, and store in a list
+    first_multiple_input = input().rstrip().split()
+
+    # Convert the input values to integers
+    x1 = int(first_multiple_input[0])
+    v1 = int(first_multiple_input[1])
+    x2 = int(first_multiple_input[2])
+    v2 = int(first_multiple_input[3])
+
+    # Call the kangaroo function to determine if they meet
+    result = kangaroo(x1, v1, x2, v2)
+
+    # Write the result to the output file
+    fptr.write(result + '\n')
+
+    # Close the output file
+    fptr.close()
+
+# Viral Advertising
+#!/bin/python3
+
+import math
+import os
+import random
+import re
+import sys
+
+#
+# Complete the 'viralAdvertising' function below.
+#
+# The function is expected to return an INTEGER.
+# The function accepts INTEGER n as a parameter, representing the number of days.
+#
+
+def viralAdvertising(n):
+    # Initialize variables to keep track of total recipients and total likes
+    recipients = 0
+    likes = 0
+    
+    # Loop through each day from 1 to n
+    for i in range(1, n + 1):
+        if i == 1:
+            # On the first day, 5 people receive the advertisement
+            recipients = 5
+            # Half of the recipients (5 // 2 = 2) like the advertisement
+            likes = 5 // 2
+        else:
+            # For subsequent days, the number of recipients is 3 times the likes from the previous day
+            recipients = recipients // 2 * 3
+            # Add the number of likes from the current day to the total likes
+            likes += recipients // 2
+    
+    # Return the total number of likes received after n days
+    return likes
+
+if __name__ == '__main__':
+    # Open the output file specified in the environment variable 'OUTPUT_PATH'
+    fptr = open(os.environ['OUTPUT_PATH'], 'w')
+
+    # Read the number of days as input
+    n = int(input().strip())
+
+    # Call the viralAdvertising function to calculate the total likes
+    result = viralAdvertising(n)
+
+    # Write the result to the output file
+    fptr.write(str(result) + '\n')
+
+    # Close the output file
+    fptr.close()
+
+# Recursive Digit Sum
+#!/bin/python3
+
+import math
+import os
+import random
+import re
+import sys
+
+#
+# Complete the 'superDigit' function below.
+#
+# The function is expected to return an INTEGER.
+# The function accepts the following parameters:
+#  1. STRING n - a string representation of the number
+#  2. INTEGER k - the number of times to concatenate n
+#
+
+def superDigit(n, k):
+    # Calculate the initial digit sum by converting each character in n to an integer,
+    # summing them up, and then multiplying by k (the number of times n is repeated)
+    digit = sum(list(map(int, n))) * k
+    
+    # Reduce digit to a single digit by summing the digits until it is less than 10
+    while digit >= 10:
+        digit = sum(list(map(int, list(str(digit)))))
+    
+    # Return the final single-digit result
+    return digit
+
+if __name__ == '__main__':
+    # Open the output file specified in the environment variable 'OUTPUT_PATH'
+    fptr = open(os.environ['OUTPUT_PATH'], 'w')
+
+    # Read the input, which consists of a number in string format and an integer k
+    first_multiple_input = input().rstrip().split()
+
+    n = first_multiple_input[0]  # The number as a string
+    k = int(first_multiple_input[1])  # The integer k
+
+    # Call the superDigit function to compute the super digit
+    result = superDigit(n, k)
+
+    # Write the result to the output file
+    fptr.write(str(result) + '\n')
+
+    # Close the output file
+    fptr.close()
+
+# Insertion Sort - Part 1
+#!/bin/python3
+
+import math
+import os
+import random
+import re
+import sys
+
+#
+# Complete the 'insertionSort1' function below.
+#
+# The function accepts the following parameters:
+#  1. INTEGER n - the number of elements in the array
+#  2. INTEGER_ARRAY arr - the array to be sorted using insertion sort
+#
+
+def insertionSort1(n, arr):
+    # Store the last element of the array, which will be inserted in its correct position
+    e = arr[-1]
+    
+    # Initialize i to the second last index (n - 2)
+    i = n - 2
+    
+    # Shift elements of arr[0..i] that are greater than e to one position ahead
+    while i >= 0 and arr[i] > e:
+        arr[i + 1] = arr[i]  # Move element one position to the right
+        print(' '.join(map(str, arr)))  # Print the current state of the array
+        i -= 1  # Decrement i to check the next element
+    
+    # Place the last element e in its correct position
+    arr[i + 1] = e
+    
+    # Print the final state of the array after insertion
+    print(' '.join(map(str, arr)))
+
+if __name__ == '__main__':
+    # Read the number of elements in the array
+    n = int(input().strip())
+
+    # Read the array elements from input
+    arr = list(map(int, input().rstrip().split()))
+
+    # Call the insertionSort1 function to perform insertion sort
+    insertionSort1(n, arr)
+
+# Insertion Sort - Part 2
+#!/bin/python3
+
+import math
+import os
+import random
+import re
+import sys
+
+#
+# Complete the 'insertionSort2' function below.
+#
+# The function accepts the following parameters:
+#  1. INTEGER n - the number of elements in the array
+#  2. INTEGER_ARRAY arr - the array to be sorted using insertion sort
+#
+
+def insertionSort2(n, arr):
+    # Iterate through the array starting from the second element
+    for i in range(1, n):
+        e = arr[i]  # Store the current element to be inserted
+        j = i - 1  # Initialize j to the index of the last sorted element
+
+        # Shift elements of arr[0..i-1] that are greater than e to the right
+        while j >= 0 and e < arr[j]:
+            arr[j + 1] = arr[j]  # Move the larger element one position ahead
+            j -= 1  # Move to the previous element
+
+        # Place the current element e in its correct position
+        arr[j + 1] = e
+        
+        # Print the current state of the array after each insertion
+        print(' '.join(map(str, arr)))
+
+if __name__ == '__main__':
+    # Read the number of elements in the array
+    n = int(input().strip())
+
+    # Read the array elements from input
+    arr = list(map(int, input().rstrip().split()))
+
+    # Call the insertionSort2 function to perform insertion sort
+    insertionSort2(n, arr)
