@@ -282,117 +282,257 @@ if __name__ == '__main__':
 # STRINGS
 
 # sWAP cASE
+# Function to swap case of each character in the input string
 def swap_case(s):
-    swapped = []
+    swapped = []  # List to store swapped characters
     
+    # Iterate through each character in the string
     for char in s:
         if char.isupper():
-            swapped.append(char.lower())
+            swapped.append(char.lower())  # Convert uppercase to lowercase
         else:
-            swapped.append(char.upper())
-    return(''.join(swapped))
+            swapped.append(char.upper())  # Convert lowercase to uppercase
+    
+    return ''.join(swapped)  # Join the swapped characters into a string
 
 if __name__ == '__main__':
-    s = input()
-    result = swap_case(s)
-    print(result)
+    s = input()  # Get input string
+    result = swap_case(s)  # Call the function to swap case
+    print(result)  # Print the result
 
 # String Split and Join
+# Function to split a string by spaces and join with hyphens
 def split_and_join(line):
-    return '-'.join(line.split())
+    return '-'.join(line.split())  # Split by spaces and join with '-'
 
 if __name__ == '__main__':
-    line = input()
-    result = split_and_join(line)
-    print(result)
+    line = input()  # Get input string
+    result = split_and_join(line)  # Call the function to split and join
+    print(result)  # Print the result
 
 # What's Your Name?
+# Function to print a greeting with full name
 def print_full_name(first, last):
-    print("Hello " + first + " " + last + "! You just delved into python.")
+    print(f"Hello {first} {last}! You just delved into python.")  # Print formatted greeting
 
 if __name__ == '__main__':
-    first_name = input()
-    last_name = input()
-    print_full_name(first_name, last_name)
+    first_name = input()  # Input first name
+    last_name = input()  # Input last name
+    print_full_name(first_name, last_name)  # Call the function
 
 # Mutations
+# Function to mutate a string at a given position
 def mutate_string(string, position, character):
-    string_list = list(string)
-    string_list[position] = character
-    return ''.join(string_list)
+    string_list = list(string)  # Convert string to list
+    string_list[position] = character  # Replace character at position
+    return ''.join(string_list)  # Return mutated string
 
 if __name__ == '__main__':
-    s = input()
-    i, c = input().split()
-    s_new = mutate_string(s, int(i), c)
-    print(s_new)
+    s = input()  # Get input string
+    i, c = input().split()  # Get position and character
+    s_new = mutate_string(s, int(i), c)  # Call the function to mutate string
+    print(s_new)  # Print the mutated string
 
 # Find a string
+# Function to count occurrences of a substring in a string
 def count_substring(string, sub_string):
+    count = 0  # Initialize count
+    len_sub_string = len(sub_string)  # Length of the substring
     
-    count = 0
-    len_sub_string = len(sub_string)
-    
+    # Iterate through the string to check for substring matches
     for i in range(len(string) - len_sub_string + 1):
         if string[i:i+len_sub_string] == sub_string:
-            count += 1
-    return count
+            count += 1  # Increment count if substring matches
+    
+    return count  # Return the count
 
 if __name__ == '__main__':
-    string = input().strip()
-    sub_string = input().strip()
-    
-    count = count_substring(string, sub_string)
-    print(count)
+    string = input().strip()  # Get input string
+    sub_string = input().strip()  # Get substring to search
+    count = count_substring(string, sub_string)  # Call the function to count occurrences
+    print(count)  # Print the count
 
 # String Validators
+# Check if the string contains various types of characters
 if __name__ == '__main__':
-    s = input()
+    s = input()  # Get input string
     
+    # Check if any alphanumeric, alphabetic, digits, lowercase, or uppercase characters exist
     print(any(c.isalnum() for c in s))
-    print(any(c.isalpha() for c in s)) 
+    print(any(c.isalpha() for c in s))
     print(any(c.isdigit() for c in s))
     print(any(c.islower() for c in s))
     print(any(c.isupper() for c in s))
 
 # Text Alignment
-thickness = int(input())  
-c = 'H'
+# This function prints an 'H' pattern based on input thickness
+thickness = int(input())  # Get thickness input
+c = 'H'  # Character to use for the pattern
 
+# Top cone of the pattern
 for i in range(thickness):
     print((c * (2 * i + 1)).center(thickness * 2))
 
+# Upper pillars
 for i in range(thickness + 1):
     print((c * thickness).center(thickness * 2) + (c * thickness).center(thickness * 6))
 
+# Middle belt
 for i in range((thickness + 1) // 2):
     print((c * thickness * 5).center(thickness * 6))
 
+# Lower pillars
 for i in range(thickness + 1):
     print((c * thickness).center(thickness * 2) + (c * thickness).center(thickness * 6))
 
+# Bottom cone
 for i in range(thickness):
     print((c * (2 * (thickness - i) - 1)).center(thickness * 2).rjust(thickness * 6))
 
 # Text Wrap
+# Function to wrap text at a specified width
 import textwrap
 
 def wrap(string, max_width):
-    len_string = len(string)
+    len_string = len(string)  # Length of the string
     s = ""
     upper = max_width
     i = 0
     
+    # Split the string into chunks of max_width
     while i < len_string:
         if i + max_width > len_string:
             upper = len_string - i
         s = s + string[i:i+upper] + "\n"
-        i = i + upper
-    return(s)
+        i += upper
+    
+    return s  # Return the wrapped string
 
 if __name__ == '__main__':
-    string, max_width = input(), int(input())
-    result = wrap(string, max_width)
-    print(result)
+    string, max_width = input(), int(input())  # Get input string and max width
+    result = wrap(string, max_width)  # Call the wrap function
+    print(result)  # Print the wrapped string
 
 # Designer Door Mat
+# Function to print a designer door mat pattern
+def designer(n, m):
+    rows_above = n // 2  # Number of rows above the 'WELCOME' line
+
+    # Print top half of the mat
+    for i in range(rows_above):
+        pattern = ('.|.' * (2 * i + 1)).center(m, '-')  # Generate pattern with center alignment
+        print(pattern)
+    
+    # Print the middle 'WELCOME' line
+    print('WELCOME'.center(m, '-'))
+
+    # Print bottom half of the mat
+    for i in range(rows_above - 1, -1, -1):
+        pattern = ('.|.' * (2 * i + 1)).center(m, '-')  # Mirror the pattern from top half
+        print(pattern)
+
+if __name__ == '__main__':
+    n, m = map(int, input().split())  # Get dimensions of the mat
+    designer(n, m)  # Call the function to print the mat
+
+# String Formatting
+# Function to print formatted numbers in decimal, octal, hexadecimal, and binary
+def print_formatted(number):
+    formatted = []
+    width = len(bin(number)) - 2  # Calculate width for formatting
+    
+    # Generate formatted strings for each number
+    for i in range(1, number + 1):
+        sub = [
+            str(i).rjust(width),
+            oct(i).replace('0o', '').rjust(width),
+            str(hex(i).replace('0x', '').upper()).rjust(width),
+            bin(i).replace('0b', '').rjust(width)
+        ]
+        formatted.append(sub)
+    
+    # Print the formatted numbers
+    for sublist in formatted:
+        print(' '.join(sublist))
+
+if __name__ == '__main__':
+    n = int(input())  # Get the input number
+    print_formatted(n)  # Call the function to print formatted numbers
+
+# Alphabet Rangoli
+# Function to print a Rangoli pattern of letters
+import string
+
+def print_rangoli(size):
+    alphabet = string.ascii_lowercase  # Get lowercase alphabet
+    pattern_lines = []  # List to store pattern lines
+    
+    # Generate top half of the pattern
+    for i in range(size - 1, -1, -1):
+        letters = '-'.join(alphabet[size - 1:i:-1] + alphabet[i:size])
+        line = letters.center(4 * size - 3, '-')
+        pattern_lines.append(line)
+    
+    # Generate bottom half (mirrored from top)
+    for i in range(1, size):
+        letters = '-'.join(alphabet[size - 1:i:-1] + alphabet[i:size])
+        line = letters.center(4 * size - 3, '-')
+        pattern_lines.append(line)
+    
+    print('\n'.join(pattern_lines))  # Print the entire pattern
+
+if __name__ == '__main__':
+    n = int(input())  # Get the input size
+    print_rangoli(n)  # Call the function to print the rangoli
+
+# Capitalize!
+# Function to capitalize the first letter of each word in a string
+def solve(s):
+    return ' '.join([word.capitalize() for word in s.split()])  # Capitalize each word
+
+if __name__ == '__main__':
+    s = input()  # Get input string
+    result = solve(s)  # Call the function to capitalize words
+    print(result)  # Print the result
+    
+# The Minion Game
+# This function determines the winner between Kevin and Stuart in the Minion Game.
+def minion_game(string):
+    
+    scores = {'Kevin': 0, 'Stuart': 0}  # Initialize scores for both players
+    string_len = len(string)  # Length of the input string
+
+    # Loop through each character in the string
+    for i in range(string_len):
+        if string[i] in 'AEIOU':  # Check if the character is a vowel
+            scores['Kevin'] = scores['Kevin'] + string_len - i  # Kevin scores for vowels
+        else:
+            scores['Stuart'] = scores['Stuart'] + string_len - i  # Stuart scores for consonants
+
+    # Determine and print the winner or draw
+    if scores['Kevin'] > scores['Stuart']:
+        print("Kevin " + str(scores['Kevin']))  # Kevin wins
+    elif scores['Stuart'] > scores['Kevin']:
+        print("Stuart " + str(scores['Stuart']))  # Stuart wins
+    else:
+        print("Draw")  # It's a draw
+
+if __name__ == '__main__':
+    s = input()  # Input string
+    minion_game(s)  # Call the function to play the game
+
+# Merge the Tools!
+# This function splits a string into k-sized chunks and removes duplicate characters from each chunk.
+def merge_the_tools(string, k):
+    # Iterate through the string in chunks of size k
+    for i in range(0, len(string), k):
+        unique = []  # List to store unique characters in each segment
+        # Iterate through each character in the current segment
+        for c in string[i:i+k]:
+            if c not in unique:
+                unique.append(c)  # Add character to unique list if not already present
+        print(''.join(unique))  # Print the unique characters as a string
+
+if __name__ == '__main__':
+    string, k = input(), int(input())  # Input string and integer k
+    merge_the_tools(string, k)  # Call the function to merge tools
