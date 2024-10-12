@@ -1000,3 +1000,86 @@ if __name__ == '__main__':
     T = int(input())  # Input the number of test cases.
     operands = [input().strip().split() for _ in range(T)]  # Input each pair of operands.
     print(division(operands))  # Output the results of the division.
+
+# BUILT-INS
+
+# Zipped!
+# Function to calculate the average marks of students.
+def avg(N, X, marks):
+    # Create a list of student indices from 0 to N-1.
+    students = [i for i in range(0, N)]
+    
+    # Create a list of tuples that pair each student with their corresponding marks.
+    marks_tuples = [tup for sub in marks for tup in zip(students, sub)]
+    
+    # Initialize a result list to hold the total marks for each student.
+    result = [0] * N
+    
+    # Sum up the marks for each student based on the tuples created.
+    for mark in marks_tuples:
+        result[mark[0]] += mark[1]
+    
+    # Calculate the average marks for each student by dividing total marks by X.
+    result = [avg / X for avg in result]
+    
+    # Return the averages as a newline-separated string.
+    return "\n".join(map(str, result))
+
+if __name__ == '__main__':
+    # Read the first line of input, which contains N (number of students) and X (number of subjects).
+    NX = list(map(int, input().strip().split()))
+    
+    # Read the subsequent lines of input, which contain the marks for each subject.
+    marks = [list(map(float, input().strip().split())) for _ in range(NX[1])]
+    
+    # Print the average marks for each student.
+    print(avg(NX[0], NX[1], marks))
+
+# Athlete Sort
+#!/bin/python3
+import math
+import os
+import random
+import re
+import sys
+
+# Function to sort a list of lists based on the k-th element of each sublist.
+def sortK(arr, k):
+    # Sort the array using the k-th element of each sublist as the key.
+    k_sorted = sorted(arr, key=lambda x: x[k])
+    
+    # Join each sublist into a string and return all sublists as newline-separated strings.
+    return "\n".join(map(str, [' '.join(map(str, sublist)) for sublist in k_sorted]))
+
+if __name__ == '__main__':
+    # Read the first line of input, which contains n (number of rows) and m (number of columns).
+    nm = input().split()
+
+    n = int(nm[0])  # Convert n to an integer.
+
+    m = int(nm[1])  # Convert m to an integer.
+
+    arr = []  # Initialize an empty list to hold the rows.
+
+    # Read each row of input and append it to arr.
+    for _ in range(n):
+        arr.append(list(map(int, input().rstrip().split())))
+
+    k = int(input())  # Read the index of the column to sort by.
+    
+    # Print the sorted array based on the k-th column.
+    print(sortK(arr, k))
+
+# ginortS
+def sortAlfa(s):
+    # Sort the string s using a custom sorting key.
+    return ''.join(sorted(s, key=lambda x: (
+        x.isdigit() and int(x) % 2 == 0,  # Sort by whether the character is an even digit first.
+        x.isdigit(),                    # Then, sort by whether the character is a digit.
+        x.isupper(),                    # Next, sort by whether the character is uppercase.
+        x                               # Finally, sort alphabetically.
+    )))
+
+if __name__ == '__main__':
+    s = input()  # Read input from the user.
+    print(sortAlfa(s))  # Print the sorted result.
