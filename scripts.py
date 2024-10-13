@@ -88,10 +88,10 @@ def is_leap(year):
     
     # Return whether the year is a leap year or not
     return leap
-
-# Read a year input and check if it's a leap year
-year = int(input())
-print(is_leap(year))
+if __name__ == '__main__':
+    # Read a year input and check if it's a leap year
+    year = int(input())
+    print(is_leap(year))
 
 # Print Function
 def printFunction(n):
@@ -755,9 +755,8 @@ if __name__ == '__main__':
 # COLLECTIONS
 
 # collections.Counter()
-# Function to calculate profit based on available sizes and desired sizes.
 from collections import Counter
-
+# Function to calculate profit based on available sizes and desired sizes.
 def counter(sizes, desired_sizes):
     occ_size = Counter(sizes)  # Count occurrences of each size.
     profit = 0
@@ -775,9 +774,8 @@ if __name__ == '__main__':
     print(counter(sizes, desired_sizes))  # Output the total profit.
 
 # DefaultDict Tutorial
-# Function to index words and return their positions based on given lists.
 from collections import defaultdict
-
+# Function to index words and return their positions based on given lists.
 def index(A, B):
     d = defaultdict(list)  # Create a default dictionary with lists.
     result = ""
@@ -811,9 +809,8 @@ if __name__ == '__main__':
     print(avg(N, students))  # Output the average marks.
 
 # Collections.OrderedDict()
-# Function to accumulate item quantities using OrderedDict.
 from collections import OrderedDict
-
+# Function to accumulate item quantities using OrderedDict.
 def ordered(N, items_list):
     items = OrderedDict()  # Create an OrderedDict to maintain the order of items.
 
@@ -829,9 +826,8 @@ if __name__ == '__main__':
     print(ordered(N, items_list))  # Output accumulated items.
 
 # Word Order
-# Function to count unique words and their occurrences in order.
 from collections import OrderedDict
-
+# Function to count unique words and their occurrences in order.
 def occ(words_list):
     words = OrderedDict()  # Use an OrderedDict to maintain insertion order.
 
@@ -846,9 +842,8 @@ if __name__ == '__main__':
     print(occ(words_list))  # Output the word count and occurrences.
 
 # Collections.deque()
-# Function to perform operations on a deque based on given commands.
 from collections import deque
-
+# Function to perform operations on a deque based on given commands.
 def operate(commands):
     d = deque()  # Initialize a deque.
     
@@ -871,9 +866,8 @@ if __name__ == '__main__':
     print(operate(commands))  # Output the final state of the deque.
 
 # Company Logo
-# Function to generate a logo based on character occurrences.
 from collections import Counter, OrderedDict
-
+# Function to generate a logo based on character occurrences.
 def logo(s):
     occ = Counter(s)  # Count occurrences of each character.
     recurrent_ch = OrderedDict()  # Maintain order of characters.
@@ -940,9 +934,8 @@ if __name__ == '__main__':
 # DATE AND TIME
 
 # Calendar Module
-# Function to determine the capitalized name of the day of the week for a given date.
 import calendar
-
+# Function to determine the capitalized name of the day of the week for a given date.
 def capitalDay(date):
     month = int(date[0])  # Extract the month from the date.
     day = int(date[1])    # Extract the day from the date.
@@ -954,12 +947,10 @@ if __name__ == '__main__':
     print(capitalDay(date))  # Output the capitalized day name.
 
 # Time Delta
-# Function to calculate the absolute time difference in seconds between two datetime strings.
 #!/bin/python3
-
 import os
 from datetime import datetime
-
+# Function to calculate the absolute time difference in seconds between two datetime strings.
 def time_delta(t1, t2):
     format = "%a %d %b %Y %H:%M:%S %z"  # Define the format for the datetime strings.
     
@@ -1144,13 +1135,13 @@ if __name__ == '__main__':
 # This pattern matches a comma or period that is preceded by a digit and followed by a digit.
 regex_pattern = r"(?<=\d)[,.](?=\d)"
 
-import re  # Import the regular expression module.
+import re
 # Read a line of input, split it using the defined regex pattern, and print the resulting parts.
 # Each part is printed on a new line.
 print("\n".join(re.split(regex_pattern, input())))
 
 # Group(), Groups() & Groupdict()
-import re  # Import the regular expression module.
+import re
 
 def firstRep(s):
     # Use a regex to search for the first repeated character in the string.
@@ -1165,7 +1156,7 @@ if __name__ == '__main__':
     print(firstRep(s))  # Print the first repeated character or -1 if none is found.
 
 # Re.findall() & Re.finditer()
-import re  # Import the regular expression module.
+import re
 
 def match(s):
     # Use re.findall to search for sequences of two or more vowels (a, e, i, o, u) 
