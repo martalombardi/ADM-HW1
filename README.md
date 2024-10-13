@@ -33,12 +33,12 @@ The goal of this section is to strengthen your Python programming skills by comp
 - **Built-ins** (3 challenges, max points: 80)  
   [Zipped Challenge](https://www.hackerrank.com/challenges/zipped)  
   [Sort Challenge](https://www.hackerrank.com/challenges/python-sort-sort)  
-  [GINORTS Challenge](https://www.hackerrank.com/challenges/ginorts)
+  [ginortS Challenge](https://www.hackerrank.com/challenges/ginorts)
 
 - **Python Functionals** (1 challenge, max points: 20)  
   [Map and Lambda Expression Challenge](https://www.hackerrank.com/challenges/map-and-lambda-expression)
 
-- **Regex and Parsing** (17 challenges, max points: 560)  
+- **Regex and Parsing challenges** (17 challenges, max points: 560)  
   [Regex and Parsing Challenges](https://www.hackerrank.com/domains/python/py-regex)
 
 - **XML** (2 challenges, max points: 40)  
@@ -55,8 +55,8 @@ The goal of this section is to strengthen your Python programming skills by comp
 This section involves implementing algorithms in Python. The challenges include:
 
 - [Birthday Cake Candles](https://www.hackerrank.com/challenges/birthday-cake-candles)
-- [Kangaroo](https://www.hackerrank.com/challenges/kangaroo)
-- [Strange Advertising](https://www.hackerrank.com/challenges/strange-advertising)
+- [Number Line Jumps](https://www.hackerrank.com/challenges/kangaroo)
+- [Viral Advertising](https://www.hackerrank.com/challenges/strange-advertising)
 - [Recursive Digit Sum](https://www.hackerrank.com/challenges/recursive-digit-sum)
 - [Insertion Sort Part 1](https://www.hackerrank.com/challenges/insertionsort1)
 - [Insertion Sort Part 2](https://www.hackerrank.com/challenges/insertionsort2)
